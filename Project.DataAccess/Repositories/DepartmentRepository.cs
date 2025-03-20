@@ -35,7 +35,7 @@ namespace Project.DataAccess.Repositories
         }
 
         //Insert
-        public int Insert(Department department)
+        public int Add(Department department)
         {
             _dbContext.Departments.Add(department);
             return _dbContext.SaveChanges();

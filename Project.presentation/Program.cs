@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Project.Bussiness.Services;
 using Project.DataAccess.Data.Contexts;
 using Project.DataAccess.Repositories;
 
@@ -20,7 +21,7 @@ namespace Project.presentation
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>(); //Register to Service in DI Container.
-
+            builder.Services.AddScoped<IDepartmentService, DepartmentService>(); //Register to Service in DI Container.
             #endregion             
             var app = builder.Build();
 

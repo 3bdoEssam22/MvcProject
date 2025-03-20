@@ -6,7 +6,7 @@ namespace Project.DataAccess.Repositories
         int Delete(Department department);
         IEnumerable<Department> GetAll(bool WithTracking = false);
         Department? GetById(int id);
-        int Insert(Department department);
+        int Add(Department department);
         int Update(Department department);
     }
 }
