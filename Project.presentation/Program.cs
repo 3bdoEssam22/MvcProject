@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Project.DataAccess.Data.Contexts;
+using Project.DataAccess.Repositories;
 
 namespace Project.presentation
 {
@@ -18,9 +19,9 @@ namespace Project.presentation
                 //options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>(); //Register to Service in DI Container.
 
-            #endregion
-             
+            #endregion             
             var app = builder.Build();
 
             #region Configure the HTTP request pipeline
