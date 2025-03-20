@@ -2,13 +2,13 @@
 
 namespace Project.DataAccess.Data.Contexts
 {
-    class ApplicationDbContext: DbContext
+    public class ApplicationDbContext(DbContextOptions options) : DbContext(options)
     {
         public DbSet<Department> Departments { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("ConnectionString");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("ConnectionString");
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

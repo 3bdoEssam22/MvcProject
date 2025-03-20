@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Project.DataAccess.Data.Contexts;
+
 namespace Project.presentation
 {
     public class Program
@@ -8,9 +11,16 @@ namespace Project.presentation
 
             #region Add services to the container
             builder.Services.AddControllersWithViews();
+            //builder.Services.AddScoped<ApplicationDbContext>(); //Register to Service in DI Container.
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                //options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]);
+                //options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             #endregion
-
+             
             var app = builder.Build();
 
             #region Configure the HTTP request pipeline

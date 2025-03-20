@@ -1,7 +1,7 @@
 ﻿
 namespace Project.DataAccess.Models
 {
-    class BaseEntity
+    public class BaseEntity
     {
         public int Id { get; set; } //PK
         public int CreatedBy { get; set; } //User Id
