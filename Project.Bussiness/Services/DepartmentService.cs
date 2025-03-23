@@ -47,7 +47,7 @@ namespace Project.Bussiness.Services
         }
 
         //Create new Department
-        public int AddDepartment(CreatedDepartmentDto departmentDto)
+        public int CreateDepartment(CreatedDepartmentDto departmentDto)
         {
             var department = departmentDto.ToEntity();
             return departmentRepository.Add(department);
