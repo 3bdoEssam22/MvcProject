@@ -95,9 +95,9 @@ namespace Project.presentation.Controllers
             return View(departmentViewModel);
         }
 
-        public IActionResult Edit([FromRoute]int? Id, DepartmentEditViewModel viewModel)
+        public IActionResult Edit([FromRoute] int? Id, DepartmentEditViewModel viewModel)
         {
-            if(!Id.HasValue) return BadRequest();
+            if (!Id.HasValue) return BadRequest();
             if (ModelState.IsValid)
             {
                 try
@@ -139,6 +139,52 @@ namespace Project.presentation.Controllers
             return View(viewModel);
 
         }
+        #endregion
+
+        #region Delete Department
+
+        //[HttpGet]
+        //public IActionResult Delete(int? Id)
+        //{
+        //    if (!Id.HasValue) return BadRequest();
+        //    var department = _departmentService.GetDepartmentById(Id.Value);
+        //    if (department is null) return NotFound();
+        //    return View(department);
+        //}
+        [HttpPost]
+        public IActionResult Delete(int Id)
+        {
+            if (Id == 0) return BadRequest();
+            try
+            {
+                bool Result = _departmentService.DeleteDepartment(Id);
+                if (Result)
+                    return RedirectToAction(nameof(Index));
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Department can't be deleted");
+                    return RedirectToAction(nameof(Delete), new { Id });
+                }
+            }
+            catch (Exception ex)
+            {
+                if (_enviroment.IsDevelopment())
+                {
+                    // 1. Development => Log error in console and return same view with error message.
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    // 2. Deployment => Log error in file | table in database and return error view.
+                    _logger.LogError(ex.Message);
+                    return View("ErrorView", ex);
+                }
+
+
+            }
+        }
+
         #endregion
 
     }
