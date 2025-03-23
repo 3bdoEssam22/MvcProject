@@ -1,5 +1,4 @@
-﻿
-namespace Project.DataAccess.Models
+﻿namespace Project.DataAccess.Models.Shared
 {
     public class BaseEntity
     {

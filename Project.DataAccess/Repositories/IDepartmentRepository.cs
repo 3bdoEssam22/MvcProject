@@ -1,4 +1,6 @@
 ﻿
+using Project.DataAccess.Models.DepartmentModel;
+
 namespace Project.DataAccess.Repositories
 {
     public interface IDepartmentRepository

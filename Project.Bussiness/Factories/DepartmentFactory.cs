@@ -1,5 +1,5 @@
 ﻿using Project.Bussiness.DataTransferObjects;
-using Project.DataAccess.Models;
+using Project.DataAccess.Models.DepartmentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
