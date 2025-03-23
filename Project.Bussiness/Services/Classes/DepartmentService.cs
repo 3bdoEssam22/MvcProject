@@ -1,14 +1,9 @@
-﻿using Project.Bussiness.DataTransferObjects;
+﻿using Project.Bussiness.DataTransferObjects.DepartmentDtos;
 using Project.Bussiness.Factories;
-using Project.DataAccess.Models;
-using Project.DataAccess.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Project.Bussiness.Services.Interfaces;
+using Project.DataAccess.Repositories.Interfaces;
 
-namespace Project.Bussiness.Services
+namespace Project.Bussiness.Services.Classes
 {
     public class DepartmentService(IDepartmentRepository departmentRepository) : IDepartmentService
     {
@@ -47,7 +42,7 @@ namespace Project.Bussiness.Services
         }
 
         //Create new Department
-        public int AddDepartment(CreatedDepartmentDto departmentDto)
+        public int CreateDepartment(CreatedDepartmentDto departmentDto)
         {
             var department = departmentDto.ToEntity();
             return departmentRepository.Add(department);

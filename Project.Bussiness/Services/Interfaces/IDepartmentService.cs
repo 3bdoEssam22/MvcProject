@@ -1,10 +1,10 @@
-﻿using Project.Bussiness.DataTransferObjects;
+﻿using Project.Bussiness.DataTransferObjects.DepartmentDtos;
 
-namespace Project.Bussiness.Services
+namespace Project.Bussiness.Services.Interfaces
 {
     public interface IDepartmentService
     {
-        int AddDepartment(CreatedDepartmentDto departmentDto);
+        int CreateDepartment(CreatedDepartmentDto departmentDto);
         bool DeleteDepartment(int id);
         IEnumerable<DepartmentDto> GetAllDepartments();
         DepartmentDetailsDto? GetDepartmentById(int id);

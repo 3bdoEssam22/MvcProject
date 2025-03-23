@@ -1,5 +1,5 @@
-﻿using Project.Bussiness.DataTransferObjects;
-using Project.DataAccess.Models;
+﻿using Project.Bussiness.DataTransferObjects.DepartmentDtos;
+using Project.DataAccess.Models.DepartmentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +44,7 @@ namespace Project.Bussiness.Factories
                 Name = departmentDto.Name,
                 Code = departmentDto.Code,
                 Description = departmentDto.Description,
-                CreatedOn = departmentDto.DateOfCrefation.ToDateTime(new TimeOnly()),
+                CreatedOn = departmentDto.DateOfCreation.ToDateTime(new TimeOnly()),
             };
         }
         public static Department ToEntity(this UpdatedDepartmentDto departmentDto) => new Department

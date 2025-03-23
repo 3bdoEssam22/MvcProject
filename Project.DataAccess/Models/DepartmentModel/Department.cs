@@ -1,5 +1,6 @@
-﻿
-namespace Project.DataAccess.Models
+﻿using Project.DataAccess.Models.Shared;
+
+namespace Project.DataAccess.Models.DepartmentModel
 {
     public class Department :BaseEntity
     {
