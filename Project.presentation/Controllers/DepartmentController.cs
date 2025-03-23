@@ -39,9 +39,9 @@ namespace Project.presentation.Controllers
                         return View(departmentDto);
                     }
                 }
-                catch(Exception ex) 
+                catch (Exception ex)
                 {
-                    if(_enviroment.IsDevelopment())
+                    if (_enviroment.IsDevelopment())
                     {
                         // 1. Development => Log error in console and return same view with error message.
                         ModelState.AddModelError(string.Empty, ex.Message);
@@ -60,6 +60,20 @@ namespace Project.presentation.Controllers
 
         }
 
+
+        #endregion
+
+        #region Department details
+
+        [HttpGet]
+        public IActionResult Details(int? id)
+        {
+            if (!id.HasValue)
+                return BadRequest();
+            var department = _departmentService.GetDepartmentById(id.Value);
+            if (department is null) return NotFound();
+            return View(department);
+        }
 
         #endregion
 
