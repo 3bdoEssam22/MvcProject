@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Project.Bussiness.DataTransferObjects;
 using Project.Bussiness.Services;
+using Project.presentation.ViewModels.DepartmentViewModel;
 
 namespace Project.presentation.Controllers
 {
@@ -45,13 +47,11 @@ namespace Project.presentation.Controllers
                     {
                         // 1. Development => Log error in console and return same view with error message.
                         ModelState.AddModelError(string.Empty, ex.Message);
-                        return View(departmentDto);
                     }
                     else
                     {
                         // 2. Deployment => Log error in file | table in database and return error view.
                         _logger.LogError(ex.Message);
-                        return View(departmentDto);
                     }
                 }
 
@@ -75,6 +75,70 @@ namespace Project.presentation.Controllers
             return View(department);
         }
 
+        #endregion
+
+        #region Edit Department
+
+        [HttpGet]
+        public IActionResult Edit(int? Id)
+        {
+            if (!Id.HasValue) return BadRequest();
+            var department = _departmentService.GetDepartmentById(Id.Value);
+            if (department is null) return NotFound();
+            var departmentViewModel = new DepartmentEditViewModel
+            {
+                Name = department.Name,
+                Code = department.Code,
+                Description = department.Description,
+                DateOfCreation = department.CreatedOn
+            };
+            return View(departmentViewModel);
+        }
+
+        public IActionResult Edit([FromRoute]int? Id, DepartmentEditViewModel viewModel)
+        {
+            if(!Id.HasValue) return BadRequest();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var updatedDepartmentDto = new UpdatedDepartmentDto
+                    {
+                        Id = Id.Value,
+                        Name = viewModel.Name,
+                        Code = viewModel.Code,
+                        Description = viewModel.Description,
+                        DateOfCreation = viewModel.DateOfCreation
+                    };
+                    int Result = _departmentService.UpdateDepartment(updatedDepartmentDto);
+
+                    if (Result > 0)
+                        return RedirectToAction(nameof(Index));
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Department can't be updated");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    if (_enviroment.IsDevelopment())
+                    {
+                        // 1. Development => Log error in console and return same view with error message.
+                        ModelState.AddModelError(string.Empty, ex.Message);
+                    }
+                    else
+                    {
+                        // 2. Deployment => Log error in file | table in database and return error view.
+                        _logger.LogError(ex.Message);
+                        return View("ErrorView", ex.Message);
+                    }
+
+                }
+            }
+            return View(viewModel);
+
+        }
         #endregion
 
     }
