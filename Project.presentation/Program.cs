@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Project.Bussiness.Services;
 using Project.DataAccess.Data.Contexts;
-using Project.DataAccess.Repositories;
+using Project.DataAccess.Repositories.Classes;
+using Project.DataAccess.Repositories.Interfaces;
 
 namespace Project.presentation
 {

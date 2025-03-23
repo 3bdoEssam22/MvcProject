@@ -1,7 +1,7 @@
 ﻿using Project.Bussiness.DataTransferObjects;
 using Project.Bussiness.Factories;
 using Project.DataAccess.Models;
-using Project.DataAccess.Repositories;
+using Project.DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
