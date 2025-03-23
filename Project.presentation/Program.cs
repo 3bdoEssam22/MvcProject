@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Project.Bussiness.Services;
+using Project.Bussiness.Services.Classes;
+using Project.Bussiness.Services.Interfaces;
 using Project.DataAccess.Data.Contexts;
 using Project.DataAccess.Repositories.Classes;
 using Project.DataAccess.Repositories.Interfaces;

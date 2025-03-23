@@ -1,4 +1,4 @@
-﻿using Project.Bussiness.DataTransferObjects;
+﻿using Project.Bussiness.DataTransferObjects.DepartmentDtos;
 using Project.DataAccess.Models.DepartmentModel;
 using System;
 using System.Collections.Generic;

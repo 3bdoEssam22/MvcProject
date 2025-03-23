@@ -1,6 +1,6 @@
-﻿using Project.Bussiness.DataTransferObjects;
+﻿using Project.Bussiness.DataTransferObjects.DepartmentDtos;
 
-namespace Project.Bussiness.Services
+namespace Project.Bussiness.Services.Interfaces
 {
     public interface IDepartmentService
     {
