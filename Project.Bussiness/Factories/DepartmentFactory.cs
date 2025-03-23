@@ -44,7 +44,7 @@ namespace Project.Bussiness.Factories
                 Name = departmentDto.Name,
                 Code = departmentDto.Code,
                 Description = departmentDto.Description,
-                CreatedOn = departmentDto.DateOfCrefation.ToDateTime(new TimeOnly()),
+                CreatedOn = departmentDto.DateOfCreation.ToDateTime(new TimeOnly()),
             };
         }
         public static Department ToEntity(this UpdatedDepartmentDto departmentDto) => new Department
