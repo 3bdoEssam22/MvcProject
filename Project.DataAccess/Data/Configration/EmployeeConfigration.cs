@@ -8,7 +8,7 @@ namespace Project.DataAccess.Data.Configration
         public new void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.Property(E => E.Name).HasColumnType("varchar(50)");
-            builder.Property(E => E.Adress).HasColumnType("varchar(150)");
+            builder.Property(E => E.Address).HasColumnType("varchar(150)");
             builder.Property(E => E.Salary).HasColumnType("decimal(10,2)");
             builder.Property(E => E.Gender).HasConversion((EmpGender) => EmpGender.ToString(),
                                                           (_gender) => (Gender)Enum.Parse(typeof(Gender), _gender));
