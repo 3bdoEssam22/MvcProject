@@ -8,6 +8,6 @@ namespace Project.DataAccess.Models.Shared.Enums
 {
     public enum Gender
     {
-        Female = 1, Male = 2
+        Female = 1, Male = 2,None = 3
     }
 }
