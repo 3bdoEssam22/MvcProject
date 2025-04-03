@@ -67,7 +67,7 @@ namespace Project.presentation.Controllers
         [HttpGet]
         public IActionResult Details(int? id)
         {
-            if(!id.HasValue)return BadRequest();
+            if (!id.HasValue) return BadRequest();
             var employee = _employeeService.GetEmployeeById(id.Value);
             return employee is null ? NotFound() : View(employee);
 
@@ -81,7 +81,7 @@ namespace Project.presentation.Controllers
         {
             if (!id.HasValue) return BadRequest();
             var employee = _employeeService.GetEmployeeById(id.Value);
-            if(employee is null) return NotFound();
+            if (employee is null) return NotFound();
 
             var employeeDto = new UpdatedEmployeeDto()
             {
@@ -105,7 +105,7 @@ namespace Project.presentation.Controllers
         public IActionResult Edit(int? id, UpdatedEmployeeDto employeeDto)
         {
             if (!id.HasValue || id != employeeDto.Id) return BadRequest();
-            if(!ModelState.IsValid) return View(employeeDto);
+            if (!ModelState.IsValid) return View(employeeDto);
             try
             {
                 var reult = _employeeService.UpdateEmployee(employeeDto);
@@ -132,6 +132,42 @@ namespace Project.presentation.Controllers
                     return View("ErrorView", ex);
                 }
             }
+        }
+        #endregion
+
+        #region Delete
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            if (id == 0) return BadRequest();
+            try
+            {
+                bool Result = _employeeService.DeleteEmployee(id);
+                if (Result)
+                    return RedirectToAction(nameof(Index));
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Employee can't be deleted");
+                    return RedirectToAction(nameof(Delete), new { id });
+                }
+            }
+            catch (Exception ex)
+            {
+                if (environment.IsDevelopment())
+                {
+                    // 1. Development => Log error in console and return same view with error message.
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    // 2. Deployment => Log error in file | table in database and return error view.
+                    logger.LogError(ex.Message);
+                    return View("ErrorView", ex);
+                }
+            }
+
         }
         #endregion
     }

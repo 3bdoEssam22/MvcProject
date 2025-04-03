@@ -3,6 +3,7 @@ using Project.DataAccess.Data.Contexts;
 using Project.DataAccess.Models.DepartmentModel;
 using Project.DataAccess.Models.Shared;
 using Project.DataAccess.Repositories.Interfaces;
+using System.Linq.Expressions;
 
 namespace Project.DataAccess.Repositories.Classes
 {
@@ -42,6 +43,12 @@ namespace Project.DataAccess.Repositories.Classes
             return _dbContext.SaveChanges();
         }
 
-
+        public IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> Selector)
+        {
+            return _dbContext.Set<TEntity>()
+                .Where(e => !e.IsDeleted)
+                .Select(Selector)
+                .ToList();
+        }
     }
 }
