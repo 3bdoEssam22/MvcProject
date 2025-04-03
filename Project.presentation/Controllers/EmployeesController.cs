@@ -102,7 +102,7 @@ namespace Project.presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(int? id, UpdatedEmployeeDto employeeDto)
+        public IActionResult Edit([FromRoute]int? id, UpdatedEmployeeDto employeeDto)
         {
             if (!id.HasValue || id != employeeDto.Id) return BadRequest();
             if (!ModelState.IsValid) return View(employeeDto);

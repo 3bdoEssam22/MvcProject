@@ -14,7 +14,7 @@ namespace Project.Bussiness.Services.Classes
 {
     public class EmployeeService(IEmployeeRepository _employeeRepository, IMapper _mapper) : IEmployeeService
     {
-        public IEnumerable<EmployeeDto> GetAllEmployees(bool withTracking = false)
+        public IEnumerable<EmployeeDto> GetAllEmployees(bool withTracking)
         {
             var employees = _employeeRepository.GetAll(withTracking).Where(e => !e.IsDeleted).ToList();
             //var employeesDto = _employeeRepository.GetAll(E => new EmployeeDto
