@@ -12,7 +12,7 @@ namespace Project.DataAccess.Models.EmployeesModel
     {
         public string Name { get; set; } = null!;
         public int Age { get; set; }
-        public string? Adress { get; set; }
+        public string? Address { get; set; }
         public decimal Salary { get; set; }
         public bool IsActive { get; set; }
         public string? Email { get; set; }

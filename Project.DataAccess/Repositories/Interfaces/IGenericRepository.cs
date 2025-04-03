@@ -3,6 +3,7 @@ using Project.DataAccess.Models.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace Project.DataAccess.Repositories.Interfaces
     {
         int Add(TEntity entity);
         IEnumerable<TEntity> GetAll(bool WithTracking = false);
+        IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> Selector);
         TEntity? GetById(int id);
         int Delete(TEntity entity);
         int Update(TEntity entity);

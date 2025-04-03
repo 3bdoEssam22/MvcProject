@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Bussiness.Profiles;
 using Project.Bussiness.Services.Classes;
@@ -15,7 +16,11 @@ namespace Project.presentation
             var builder = WebApplication.CreateBuilder(args);
 
             #region Add services to the container
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); //Enable AntiForgeryToken
+            });
+
             //builder.Services.AddScoped<ApplicationDbContext>(); //Register to Service in DI Container.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
