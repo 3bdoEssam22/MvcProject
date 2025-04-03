@@ -26,6 +26,8 @@ namespace Project.presentation
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>(); //Register to Service in DI Container.
             builder.Services.AddScoped<IDepartmentService, DepartmentService>(); //Register to Service in DI Container.
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>(); //Register to Service in DI Container.
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>(); //Register to Service in DI Container.
+
             //builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly); //Register to Service in DI Container.
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
             #endregion             

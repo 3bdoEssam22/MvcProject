@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Project.Bussiness.Services.Classes
 {
-    class EmployeeService(IEmployeeRepository _employeeRepository, IMapper _mapper) : IEmployeeService
+    public class EmployeeService(IEmployeeRepository _employeeRepository, IMapper _mapper) : IEmployeeService
     {
         public EmployeeDeatilsDto? GetEmployeeById(int id)
         {
