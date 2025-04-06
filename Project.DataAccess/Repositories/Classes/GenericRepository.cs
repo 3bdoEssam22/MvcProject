@@ -21,6 +21,19 @@ namespace Project.DataAccess.Repositories.Classes
             else
                 return _dbContext.Set<TEntity>().AsNoTracking().ToList();
         }
+        public IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> Selector)
+        {
+            return _dbContext.Set<TEntity>()
+                .Where(e => !e.IsDeleted)
+                .Select(Selector)
+                .ToList();
+        }
+        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> Predicate)
+        {
+            return _dbContext.Set<TEntity>()
+                .Where(Predicate)
+                .ToList();
+        }
 
         //Insert
         public int Add(TEntity entity)
@@ -43,12 +56,5 @@ namespace Project.DataAccess.Repositories.Classes
             return _dbContext.SaveChanges();
         }
 
-        public IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> Selector)
-        {
-            return _dbContext.Set<TEntity>()
-                .Where(e => !e.IsDeleted)
-                .Select(Selector)
-                .ToList();
-        }
     }
 }

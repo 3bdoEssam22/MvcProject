@@ -14,9 +14,24 @@ namespace Project.Bussiness.Services.Classes
 {
     public class EmployeeService(IEmployeeRepository _employeeRepository, IMapper _mapper) : IEmployeeService
     {
-        public IEnumerable<EmployeeDto> GetAllEmployees(bool withTracking)
+        public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {
-            var employees = _employeeRepository.GetAll(withTracking).Where(e => !e.IsDeleted).ToList();
+
+            //var employees = _employeeRepository.GetAll();
+            //var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
+            //return employeesDto;
+
+            if(string.IsNullOrWhiteSpace(EmployeeSearchName))
+            {
+                var employees = _employeeRepository.GetAll();
+                return _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
+            }
+            else
+            {
+                var employees = _employeeRepository.GetAll(E => E.Name.ToLower().Contains(EmployeeSearchName.ToLower()));
+                return _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
+            }
+
             //var employeesDto = _employeeRepository.GetAll(E => new EmployeeDto
             //{
             //    Id = E.Id,
@@ -24,9 +39,6 @@ namespace Project.Bussiness.Services.Classes
             //    Salary = E.Salary,
             //    Age = E.Age,
             //}).Where(E => E.Age > 25);
-            var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
-
-            return employeesDto;
 
             //return employees.Select(e => e.ToEmployeeDto());
         }

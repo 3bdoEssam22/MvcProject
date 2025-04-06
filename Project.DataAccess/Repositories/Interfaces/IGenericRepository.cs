@@ -14,6 +14,7 @@ namespace Project.DataAccess.Repositories.Interfaces
         int Add(TEntity entity);
         IEnumerable<TEntity> GetAll(bool WithTracking = false);
         IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> Selector);
+        IEnumerable<TEntity> GetAll(Expression<Func<TEntity,bool>> Predicate);
         TEntity? GetById(int id);
         int Delete(TEntity entity);
         int Update(TEntity entity);
