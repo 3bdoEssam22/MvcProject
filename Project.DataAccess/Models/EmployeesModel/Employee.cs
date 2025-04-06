@@ -22,6 +22,6 @@ namespace Project.DataAccess.Models.EmployeesModel
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
         public int? DepartmentId { get; set; }
-        public Department? Department { get; set; }
+        public virtual Department? Department { get; set; }
     }
 }
