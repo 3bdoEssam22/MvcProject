@@ -38,7 +38,7 @@ namespace Project.Bussiness.Services.Classes
         }
         public int AddEmployee(CreatedEmployeeDto employeeDto)
         {
-            var employee = _mapper.Map<CreatedEmployeeDto, Employee>(employeeDto);
+            var employee = _mapper.Map<Employee>(employeeDto);
             return _employeeRepository.Add(employee);
         }
         public int UpdateEmployee(UpdatedEmployeeDto employeeDto)

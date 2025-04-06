@@ -1,17 +1,12 @@
 ﻿using Project.DataAccess.Models.EmployeesModel;
 using Project.DataAccess.Models.Shared.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Project.Bussiness.DataTransferObjects.EmployeeDtos
+namespace Project.presentation.ViewModels
 {
-    public class CreatedEmployeeDto
+    public class EmployeeViewModel
     {
-        [Required(ErrorMessage ="Name can't be null")]
+        [Required(ErrorMessage = "Name can't be null")]
         [MaxLength(50, ErrorMessage = "Max length should be 50 character")]
         [MinLength(5, ErrorMessage = "Min length should be 5 characters")]
         public string Name { get; set; } = null!;
@@ -33,6 +28,8 @@ namespace Project.Bussiness.DataTransferObjects.EmployeeDtos
         public DateOnly HiringDate { get; set; }
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
+        [Display(Name = "Department")]
         public int? DepartmentId { get; set; }
+
     }
 }

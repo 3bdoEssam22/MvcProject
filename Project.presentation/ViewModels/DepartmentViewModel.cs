@@ -1,4 +1,4 @@
-﻿namespace Project.presentation.ViewModels.DepartmentViewModel
+﻿namespace Project.presentation.ViewModels
 {
     public class DepartmentViewModel
     {

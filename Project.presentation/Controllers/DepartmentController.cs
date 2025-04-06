@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Project.Bussiness.DataTransferObjects;
 using Project.Bussiness.DataTransferObjects.DepartmentDtos;
 using Project.Bussiness.Services.Interfaces;
-using Project.presentation.ViewModels.DepartmentViewModel;
+using Project.presentation.ViewModels;
 
 namespace Project.presentation.Controllers
 {
