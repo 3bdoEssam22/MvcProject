@@ -27,20 +27,25 @@ namespace Project.presentation.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public IActionResult Create(CreatedDepartmentDto departmentDto)
+        public IActionResult Create(DepartmentViewModel departmentViewModel)
         {
             if (ModelState.IsValid) //Server side validation
             {
                 try
                 {
+                    var departmentDto = new CreatedDepartmentDto
+                    {
+                        Name = departmentViewModel.Name,
+                        Code = departmentViewModel.Code,
+                        Description = departmentViewModel.Description,
+                        DateOfCreation = departmentViewModel.DateOfCreation
+                    };
                     int Result = _departmentService.CreateDepartment(departmentDto);
                     if (Result > 0)
                         return RedirectToAction(nameof(Index));
                     else
                     {
                         ModelState.AddModelError(string.Empty, "Department can't be created");
-                        return View(departmentDto);
                     }
                 }
                 catch (Exception ex)
@@ -58,7 +63,7 @@ namespace Project.presentation.Controllers
                 }
 
             }
-            return View(departmentDto);
+            return View(departmentViewModel);
 
         }
 
@@ -87,7 +92,7 @@ namespace Project.presentation.Controllers
             if (!Id.HasValue) return BadRequest();
             var department = _departmentService.GetDepartmentById(Id.Value);
             if (department is null) return NotFound();
-            var departmentViewModel = new DepartmentEditViewModel
+            var departmentViewModel = new DepartmentViewModel
             {
                 Name = department.Name,
                 Code = department.Code,
@@ -97,7 +102,7 @@ namespace Project.presentation.Controllers
             return View(departmentViewModel);
         }
 
-        public IActionResult Edit([FromRoute] int? Id, DepartmentEditViewModel viewModel)
+        public IActionResult Edit([FromRoute] int? Id, DepartmentViewModel viewModel)
         {
             if (!Id.HasValue) return BadRequest();
             if (ModelState.IsValid)
