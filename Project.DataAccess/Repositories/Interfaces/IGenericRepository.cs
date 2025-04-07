@@ -11,12 +11,12 @@ namespace Project.DataAccess.Repositories.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : BaseEntity
     {
-        int Add(TEntity entity);
+        void Add(TEntity entity);
         IEnumerable<TEntity> GetAll(bool WithTracking = false);
         IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> Selector);
         IEnumerable<TEntity> GetAll(Expression<Func<TEntity,bool>> Predicate);
         TEntity? GetById(int id);
-        int Delete(TEntity entity);
-        int Update(TEntity entity);
+        void Delete(TEntity entity);
+        void Update(TEntity entity);
     }
 }
