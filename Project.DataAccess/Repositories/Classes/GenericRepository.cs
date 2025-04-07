@@ -21,28 +21,6 @@ namespace Project.DataAccess.Repositories.Classes
             else
                 return _dbContext.Set<TEntity>().AsNoTracking().ToList();
         }
-
-        //Insert
-        public int Add(TEntity entity)
-        {
-            _dbContext.Set<TEntity>().Add(entity);
-            return _dbContext.SaveChanges();
-        }
-
-        //Update
-        public int Update(TEntity entity)
-        {
-            _dbContext.Set<TEntity>().Update(entity);
-            return _dbContext.SaveChanges();
-        }
-
-        //Delete
-        public int Delete(TEntity entity)
-        {
-            _dbContext.Set<TEntity>().Remove(entity);
-            return _dbContext.SaveChanges();
-        }
-
         public IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> Selector)
         {
             return _dbContext.Set<TEntity>()
@@ -50,5 +28,30 @@ namespace Project.DataAccess.Repositories.Classes
                 .Select(Selector)
                 .ToList();
         }
+        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> Predicate)
+        {
+            return _dbContext.Set<TEntity>()
+                .Where(Predicate)
+                .ToList();
+        }
+
+        //Insert
+        public void Add(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Add(entity);
+        }
+
+        //Update
+        public void Update(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Update(entity);
+        }
+
+        //Delete
+        public void Delete(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Remove(entity);
+        }
+
     }
 }
