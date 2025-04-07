@@ -26,12 +26,14 @@ namespace Project.presentation
             {
                 //options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]);
                 //options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
+
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
                 options.UseLazyLoadingProxies(); //Enable Lazy Loading
             }, ServiceLifetime.Scoped);
-            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>(); //Register to Service in DI Container.
+
+            //builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>(); //Register to Service in DI Container.
+            //builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>(); //Register to Service in DI Container.
             builder.Services.AddScoped<IDepartmentService, DepartmentService>(); //Register to Service in DI Container.
-            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>(); //Register to Service in DI Container.
             builder.Services.AddScoped<IEmployeeService, EmployeeService>(); //Register to Service in DI Container.
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); //Register to Service in DI Container.
 
