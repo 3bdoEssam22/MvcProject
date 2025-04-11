@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Bussiness.Profiles;
@@ -5,6 +6,7 @@ using Project.Bussiness.Services.AttachmentService;
 using Project.Bussiness.Services.Classes;
 using Project.Bussiness.Services.Interfaces;
 using Project.DataAccess.Data.Contexts;
+using Project.DataAccess.Models.IdentityModel;
 using Project.DataAccess.Repositories.Classes;
 using Project.DataAccess.Repositories.Interfaces;
 
@@ -39,6 +41,15 @@ namespace Project.presentation
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); //Register to Service in DI Container.
             builder.Services.AddScoped<IAttachmentService, AttachmentService>(); //Register to Service in DI Container.
 
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true; //Require Unique Email
+                options.Password.RequireLowercase = true; //Require Lowercase
+                options.Password.RequireUppercase = true; //Require Uppercase
+                //options.Password.RequireDigit = true; //Require Digit
+                options.Password.RequiredLength = 6; //Required Length
+                //options.Password.RequireNonAlphanumeric = false; //Require Non Alphanumeric
+            }).AddEntityFrameworkStores<ApplicationDbContext>();
             //builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly); //Register to Service in DI Container.
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
             #endregion             
