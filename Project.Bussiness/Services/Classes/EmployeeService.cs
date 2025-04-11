@@ -15,7 +15,7 @@ namespace Project.Bussiness.Services.Classes
 {
     public class EmployeeService(IUnitOfWork _unitOfWork
         , IMapper _mapper
-        , IAttachmentService attachmentService) : IEmployeeService
+        , IAttachmentService _attachmentService) : IEmployeeService
     {
         public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {
@@ -26,7 +26,7 @@ namespace Project.Bussiness.Services.Classes
 
             if (string.IsNullOrWhiteSpace(EmployeeSearchName))
             {
-                var employees = _unitOfWork.EmployeeRepository.GetAll();
+                var employees = _unitOfWork.EmployeeRepository.GetAll().Where(E => E.IsDeleted!=true);
                 return _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
             }
             else
@@ -54,14 +54,32 @@ namespace Project.Bussiness.Services.Classes
         public int AddEmployee(CreatedEmployeeDto employeeDto)
         {
             var employee = _mapper.Map<Employee>(employeeDto);
+            if (employeeDto.ImageName is not null)
+            {
+                employee.ImageName = _attachmentService.Upload(employeeDto.ImageName, "Images");
+            }
             _unitOfWork.EmployeeRepository.Add(employee); //Add locally
             return _unitOfWork.saveChanges(); //Save to database
         }
         public int UpdateEmployee(UpdatedEmployeeDto employeeDto)
         {
             _unitOfWork.EmployeeRepository.Update(_mapper.Map<UpdatedEmployeeDto, Employee>(employeeDto));
-            return _unitOfWork.saveChanges(); //Save to database
-
+            // Edit the Image
+            if (employeeDto.Image is not null)
+            {
+                var employee = _unitOfWork.EmployeeRepository.GetById(employeeDto.Id);
+                if (employee != null)
+                {
+                    // Delete the old image if it exists
+                    if (!string.IsNullOrEmpty(employee.ImageName))
+                    {
+                        _attachmentService.Delete(employee.ImageName);
+                    }
+                    employee.ImageName = _attachmentService.Upload(employeeDto.Image, "Images");
+                    _unitOfWork.EmployeeRepository.Update(employee);
+                }
+            }
+            return _unitOfWork.saveChanges(); // Save to database
         }
 
         public bool DeleteEmployee(int id)

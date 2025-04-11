@@ -1,4 +1,5 @@
-﻿using Project.DataAccess.Models.EmployeesModel;
+﻿using Microsoft.AspNetCore.Http;
+using Project.DataAccess.Models.EmployeesModel;
 using Project.DataAccess.Models.Shared.Enums;
 using System;
 using System.Collections.Generic;
@@ -27,5 +28,6 @@ namespace Project.Bussiness.DataTransferObjects.EmployeeDtos
         public DateTime LastModifiedOn { get; set; }
         public int? DepartmentId { get; set; }
         public string? Department { get; set; }
+        public IFormFile? Image { get; set; }
     }
 }

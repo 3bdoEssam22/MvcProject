@@ -1,4 +1,5 @@
-﻿using Project.DataAccess.Models.EmployeesModel;
+﻿using Microsoft.AspNetCore.Http;
+using Project.DataAccess.Models.EmployeesModel;
 using Project.DataAccess.Models.Shared.Enums;
 using System;
 using System.Collections.Generic;
@@ -35,5 +36,6 @@ namespace Project.Bussiness.DataTransferObjects.EmployeeDtos
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
         public int? DepartmentId { get; set; }
+        public IFormFile? Image { get; set; }
     }
 }

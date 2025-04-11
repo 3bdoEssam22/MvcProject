@@ -1,4 +1,5 @@
-﻿using Project.DataAccess.Models.EmployeesModel;
+﻿using Microsoft.AspNetCore.Http;
+using Project.DataAccess.Models.EmployeesModel;
 using Project.DataAccess.Models.Shared.Enums;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Project.Bussiness.DataTransferObjects.EmployeeDtos
 {
     public class CreatedEmployeeDto
     {
-        [Required(ErrorMessage ="Name can't be null")]
+        [Required(ErrorMessage = "Name can't be null")]
         [MaxLength(50, ErrorMessage = "Max length should be 50 character")]
         [MinLength(5, ErrorMessage = "Min length should be 5 characters")]
         public string Name { get; set; } = null!;
@@ -34,5 +35,6 @@ namespace Project.Bussiness.DataTransferObjects.EmployeeDtos
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
         public int? DepartmentId { get; set; }
+        public IFormFile? ImageName { get; set; }
     }
 }
