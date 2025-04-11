@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Project.Bussiness.DataTransferObjects.EmployeeDtos;
 using Project.Bussiness.Factories;
+using Project.Bussiness.Services.AttachmentService;
 using Project.Bussiness.Services.Interfaces;
 using Project.DataAccess.Models.EmployeesModel;
 using Project.DataAccess.Repositories.Interfaces;
@@ -12,7 +13,9 @@ using System.Threading.Tasks;
 
 namespace Project.Bussiness.Services.Classes
 {
-    public class EmployeeService(IUnitOfWork _unitOfWork, IMapper _mapper) : IEmployeeService
+    public class EmployeeService(IUnitOfWork _unitOfWork
+        , IMapper _mapper
+        , IAttachmentService attachmentService) : IEmployeeService
     {
         public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {
