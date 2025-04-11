@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Bussiness.Profiles;
+using Project.Bussiness.Services.AttachmentService;
 using Project.Bussiness.Services.Classes;
 using Project.Bussiness.Services.Interfaces;
 using Project.DataAccess.Data.Contexts;
@@ -36,6 +37,7 @@ namespace Project.presentation
             builder.Services.AddScoped<IDepartmentService, DepartmentService>(); //Register to Service in DI Container.
             builder.Services.AddScoped<IEmployeeService, EmployeeService>(); //Register to Service in DI Container.
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); //Register to Service in DI Container.
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>(); //Register to Service in DI Container.
 
             //builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly); //Register to Service in DI Container.
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
