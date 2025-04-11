@@ -36,6 +36,5 @@ namespace Project.Bussiness.DataTransferObjects.EmployeeDtos
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
         public int? DepartmentId { get; set; }
-        public IFormFile? Image { get; set; }
     }
 }

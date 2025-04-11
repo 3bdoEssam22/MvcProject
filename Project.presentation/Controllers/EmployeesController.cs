@@ -116,8 +116,7 @@ namespace Project.presentation.Controllers
                 HiringDate = employee.HiringDate,
                 Gender = Enum.Parse<Gender>(employee.Gender),
                 EmployeeType = Enum.Parse<EmployeeType>(employee.EmployeeType),
-                DepartmentId = employee.DepartmentId,
-                Image = employee.Image,
+                DepartmentId = employee.DepartmentId
             };
             return View(employeeViewModel);
 
@@ -144,7 +143,6 @@ namespace Project.presentation.Controllers
                     HiringDate = employeeViewModel.HiringDate,
                     EmployeeType = employeeViewModel.EmployeeType,
                     DepartmentId = employeeViewModel.DepartmentId,
-                    Image = employeeViewModel.Image,
                 };
 
                 var reult = _employeeService.UpdateEmployee(employeeDto);

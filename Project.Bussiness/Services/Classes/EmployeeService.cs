@@ -26,7 +26,7 @@ namespace Project.Bussiness.Services.Classes
 
             if (string.IsNullOrWhiteSpace(EmployeeSearchName))
             {
-                var employees = _unitOfWork.EmployeeRepository.GetAll().Where(E => E.IsDeleted!=true);
+                var employees = _unitOfWork.EmployeeRepository.GetAll().Where(E => E.IsDeleted != true);
                 return _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
             }
             else
@@ -64,21 +64,7 @@ namespace Project.Bussiness.Services.Classes
         public int UpdateEmployee(UpdatedEmployeeDto employeeDto)
         {
             _unitOfWork.EmployeeRepository.Update(_mapper.Map<UpdatedEmployeeDto, Employee>(employeeDto));
-            // Edit the Image
-            if (employeeDto.Image is not null)
-            {
-                var employee = _unitOfWork.EmployeeRepository.GetById(employeeDto.Id);
-                if (employee != null)
-                {
-                    // Delete the old image if it exists
-                    if (!string.IsNullOrEmpty(employee.ImageName))
-                    {
-                        _attachmentService.Delete(employee.ImageName);
-                    }
-                    employee.ImageName = _attachmentService.Upload(employeeDto.Image, "Images");
-                    _unitOfWork.EmployeeRepository.Update(employee);
-                }
-            }
+            var employee = _unitOfWork.EmployeeRepository.GetById(employeeDto.Id);
             return _unitOfWork.saveChanges(); // Save to database
         }
 
