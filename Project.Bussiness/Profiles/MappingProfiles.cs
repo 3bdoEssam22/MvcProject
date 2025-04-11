@@ -23,7 +23,8 @@ namespace Project.Bussiness.Profiles
                 .ForMember(dest => dest.Gender, Options => Options.MapFrom(src => src.Gender))
                 .ForMember(dest => dest.EmployeeType, Options => Options.MapFrom(src => src.EmployeeType))
                 .ForMember(dest => dest.HiringDate, options => options.MapFrom(src => DateOnly.FromDateTime(src.HiringDate)))
-                .ForMember(dest => dest.Department, Options => Options.MapFrom(src => src.Department != null ? src.Department.Name : null));
+                .ForMember(dest => dest.Department, Options => Options.MapFrom(src => src.Department != null ? src.Department.Name : null))
+                .ForMember(dest => dest.Image, Option => Option.MapFrom(src => src.ImageName));
 
 
             CreateMap<CreatedEmployeeDto, Employee>()
