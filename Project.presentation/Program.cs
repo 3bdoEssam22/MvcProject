@@ -67,6 +67,8 @@ namespace Project.presentation
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseRouting();
 
 

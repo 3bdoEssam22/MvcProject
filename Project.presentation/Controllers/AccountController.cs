@@ -5,7 +5,8 @@ using Project.presentation.ViewModels;
 
 namespace Project.presentation.Controllers
 {
-    public class AccountController(UserManager<ApplicationUser> _userManager) : Controller
+    public class AccountController(UserManager<ApplicationUser> _userManager
+        , SignInManager<ApplicationUser> _signInManager) : Controller
     {
         #region Register
 
@@ -34,5 +35,52 @@ namespace Project.presentation.Controllers
             }
         }
         #endregion
+
+        #region Login
+
+        [HttpGet]
+        public IActionResult Login() => View();
+
+        [HttpPost]
+        public IActionResult Login(LoginViewModel ViewModel)
+        {
+            if (!ModelState.IsValid) return View(ViewModel);
+
+            var User = _userManager.FindByEmailAsync(ViewModel.Email).Result;
+
+            if (User is not null)
+            {
+                bool Flag = _userManager.CheckPasswordAsync(User, ViewModel.Password).Result;
+                if (Flag)
+                {
+                    var Result = _signInManager.PasswordSignInAsync(User, ViewModel.Password, ViewModel.RememberMe, false).Result;
+                    if (Result.IsNotAllowed)
+                        ModelState.AddModelError(string.Empty, "Your Account is not Allowed");
+
+                    if (Result.IsLockedOut)
+                        ModelState.AddModelError(string.Empty, "Your Account is Locked Out");
+
+                    if (Result.Succeeded)
+                        return RedirectToAction(nameof(HomeController.Index), "Home");
+                }
+            }
+            else
+                ModelState.AddModelError(String.Empty, "Invalid Login");
+
+            return View(ViewModel);
+            //_userManager.CheckPasswordAsync
+        }
+
+        #endregion
+
+        #region Forget Password
+
+        [HttpGet]
+        public IActionResult ForgetPassword() => View();
+
+
+
+        #endregion
+
     }
 }
