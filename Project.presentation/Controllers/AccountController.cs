@@ -87,11 +87,14 @@ namespace Project.presentation.Controllers
                 var user = _userManager.FindByEmailAsync(viewModel.Email).Result;
                 if (user is not null)
                 {
+                    var Token = _userManager.GeneratePasswordResetTokenAsync(user).Result;
+                    // BaseUrl/Account/ResetPassword?email=abdulrahman@gmail.com
+                    var ResetPasswordLink = Url.Action("ResetPawword", "Account", new { email = viewModel.Email, Token }, Request.Scheme);
                     var email = new Email
                     {
                         To = viewModel.Email,
                         Subject = "Reset Password",
-                        Body = "Reset Password Link" //TODO
+                        Body = ResetPasswordLink //TODO
                     };
                     EmailSetting.SendEmail(email);
                     return RedirectToAction(nameof(CheckYourInbox));
@@ -107,6 +110,38 @@ namespace Project.presentation.Controllers
 
         [HttpGet]
         public IActionResult CheckYourInbox() => View();
+
+        [HttpGet]
+        public IActionResult ResetPassword(string email, string Token)
+        {
+            TempData["Email"] = email;
+            TempData["Token"] = Token;
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPasswordViewModel viewModel)
+        {
+            if (!ModelState.IsValid) return View(viewModel);
+            string email = TempData["Email"] as string ?? string.Empty;
+            string token = TempData["Token"] as string ?? string.Empty;
+
+            var user = _userManager.FindByEmailAsync(email).Result;
+            if (user is not null)
+            {
+                var Result = _userManager.ResetPasswordAsync(user, token, viewModel.Password).Result;
+                if (Result.Succeeded)
+                    return RedirectToAction(nameof(Login));
+                else
+                {
+                    foreach (var error in Result.Errors)
+                        ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            return View(nameof(Login), viewModel);
+
+        }
 
         #endregion
 

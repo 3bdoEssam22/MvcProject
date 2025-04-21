@@ -49,7 +49,7 @@ namespace Project.presentation
                 //options.Password.RequireDigit = true; //Require Digit
                 options.Password.RequiredLength = 6; //Required Length
                 //options.Password.RequireNonAlphanumeric = false; //Require Non Alphanumeric
-            }).AddEntityFrameworkStores<ApplicationDbContext>();
+            }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             //builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly); //Register to Service in DI Container.
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
             #endregion             

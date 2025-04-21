@@ -9,8 +9,8 @@ namespace Project.presentation.Utilities
         {
             var Client = new SmtpClient("smtp.gmail.com", 587);
             Client.EnableSsl = true;
-            Client.Credentials = new NetworkCredential("abdulrahman@gmail.com", "123");
-            Client.Send("abdulrahman@gmail.com", email.To, email.Subject, email.Body);
+            Client.Credentials = new NetworkCredential("abdulrahman.e.f22@gmail.com", "hmcqvnwmdorhyyff");
+            Client.Send("abdulrahman.e.f22@gmail.com", email.To, email.Subject, email.Body);
 
 
         }
