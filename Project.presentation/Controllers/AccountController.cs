@@ -93,7 +93,8 @@ namespace Project.presentation.Controllers
                         Subject = "Reset Password",
                         Body = "Reset Password Link" //TODO
                     };
-
+                    EmailSetting.SendEmail(email);
+                    return RedirectToAction(nameof(CheckYourInbox));
                 }
             }
             ModelState.AddModelError(string.Empty, "Invalid Operation");
@@ -101,8 +102,13 @@ namespace Project.presentation.Controllers
 
 
 
-            #endregion
 
         }
+
+        [HttpGet]
+        public IActionResult CheckYourInbox() => View();
+
+        #endregion
+
     }
 }
