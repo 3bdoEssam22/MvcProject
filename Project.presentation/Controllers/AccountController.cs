@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project.DataAccess.Models.IdentityModel;
+using Project.presentation.Utilities;
 using Project.presentation.ViewModels;
 
 namespace Project.presentation.Controllers
@@ -78,9 +79,30 @@ namespace Project.presentation.Controllers
         [HttpGet]
         public IActionResult ForgetPassword() => View();
 
+        [HttpPost]
+        public IActionResult SendResetPasswordLink(ForgetPasswordViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _userManager.FindByEmailAsync(viewModel.Email).Result;
+                if (user is not null)
+                {
+                    var email = new Email
+                    {
+                        To = viewModel.Email,
+                        Subject = "Reset Password",
+                        Body = "Reset Password Link" //TODO
+                    };
+
+                }
+            }
+            ModelState.AddModelError(string.Empty, "Invalid Operation");
+            return View(nameof(ForgetPassword), viewModel);
 
 
-        #endregion
 
+            #endregion
+
+        }
     }
 }
